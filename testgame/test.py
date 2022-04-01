@@ -19,7 +19,7 @@ spawn = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
 
 def checkcollide(x1, y1, x2, y2):
     distance = math.sqrt((math.pow(x1-y1, 2)) + (math.pow(x2-y2, 2)))
-    if distance < 78:
+    if distance < 76:
         return True
     else:
         return False
