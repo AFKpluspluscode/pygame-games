@@ -1,3 +1,5 @@
+#You need random, math, and pygame for it to work
+
 import random
 import pygame
 import math
@@ -11,7 +13,8 @@ SCREEN_WIDTH = 1280
 PLAYER = pygame.image.load("sprites/player.png")
 ENEMY = pygame.image.load("sprites/player.png")
 
-LOG_INFO = "Log: "
+#To log
+#LOG_INFO = "Log: "
 
 player_spawn = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
 enemy_spawn = [random.randint(0, 1197),random.randint(0, 599)]
@@ -60,18 +63,18 @@ class Enemy(pygame.sprite.Sprite):
 
 #Start windows
 pygame.init()
-print(LOG_INFO + "windows starting")
+#print(LOG_INFO + "windows starting")
 
 FONT = pygame.font.Font(None, 35)
-print(LOG_INFO + "font reloaded")
+#print(LOG_INFO + "font reloaded")
 
 player = Player()
 enemy = Enemy()
-print(LOG_INFO + "player and enemy reloaded")
+#print(LOG_INFO + "player and enemy reloaded")
 
 #Set up window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-print(LOG_INFO + "windows maked")
+#print(LOG_INFO + "windows maked")
 
 
 
@@ -88,7 +91,7 @@ while running:
                 speed -= 1
         if event.type == QUIT:
             running = False
-            print(LOG_INFO + "player quit")
+            #print(LOG_INFO + "player quit")
             
 
     
