@@ -1,5 +1,3 @@
-#You need random, math, and pygame for it to work
-
 import random
 import pygame
 import math
@@ -10,8 +8,7 @@ from pygame.locals import *
 #Variables
 SCREEN_HEIGHT = 720
 SCREEN_WIDTH = 1280
-PLAYER = pygame.image.load("sprites/player.png")
-ENEMY = pygame.image.load("sprites/player.png")
+GAME_NAME = "Game"
 
 #To log
 #LOG_INFO = "Log: "
@@ -19,6 +16,13 @@ ENEMY = pygame.image.load("sprites/player.png")
 player_spawn = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
 enemy_spawn = [random.randint(0, 1197),random.randint(0, 599)]
 spawn = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
+
+def checkcollide(x1, y1, x2, y2):
+    distance = math.sqrt((math.pow(x1-y1, 2)) + (math.pow(x2-y2, 2)))
+    if distance < 27:
+        return True
+    else:
+        return False
 
 speed = 1
 
@@ -76,6 +80,9 @@ enemy = Enemy()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 #print(LOG_INFO + "windows maked")
 
+#Caption
+pygame.display.set_caption(GAME_NAME)
+
 
 
 # Run until the user asks to quit
@@ -123,9 +130,14 @@ while running:
     #screen.blit(text_x2, (123, 321))
     #screen.blit(text_y2, (321, 123))
 
+    collidecheck = checkcollide(player_spawn[0], enemy_spawn[0], player_spawn[1], enemy_spawn[1])
+    if collidecheck == True:
+        player.kill()
+        #print(LOG_INFO + "Player killed")
+        running = False
 
     #Flip
-    pygame.display.flip()
+    pygame.display.flip() 
 
 #Stop
 pygame.quit()
