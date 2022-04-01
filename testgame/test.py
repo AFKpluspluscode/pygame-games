@@ -123,9 +123,6 @@ while running:
     #screen.blit(text_x2, (123, 321))
     #screen.blit(text_y2, (321, 123))
 
-    if pygame.sprite.groupcollide(player, enemy, True, True):
-        player.kill()
-        running = False
 
     #Flip
     pygame.display.flip()
