@@ -14,12 +14,12 @@ GAME_NAME = "Game"
 #LOG_INFO = "Log: "
 
 player_spawn = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
-enemy_spawn = [random.randint(0, 1197),random.randint(0, 599)]
+enemy_spawn = [SCREEN_WIDTH/4,SCREEN_WIDTH/4]
 spawn = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]
 
 def checkcollide(x1, y1, x2, y2):
     distance = math.sqrt((math.pow(x1-y1, 2)) + (math.pow(x2-y2, 2)))
-    if distance < 76:
+    if distance < 60:
         return True
     else:
         return False
@@ -33,6 +33,7 @@ class Player(pygame.sprite.Sprite):
             self.surf = pygame.image.load("sprites/player.png")
             self.rect = self.surf.get_rect()
     def update(self, pressed_keys):
+
         if pressed_keys[K_UP]:
             player_spawn[1] -= speed
         if pressed_keys[K_DOWN]:
@@ -54,16 +55,29 @@ class Player(pygame.sprite.Sprite):
 #Enemy class
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
-            super(Enemy, self).__init__()
-            self.surf = pygame.image.load("sprites/player.png")
-            self.rect = self.surf.get_rect(
-                center = enemy_spawn
-            )
-            self.speed = random.randint(5, 20)
-    def update(self):
-        self.rect.move_ip(-self.speed, 0)
-        if self.rect.right < 0:
-            self.kill()
+        super(Enemy, self).__init__()
+        self.surf = pygame.image.load("sprites/player.png")
+        self.rect = self.surf.get_rect()
+    def ai(self):
+        if random.randint(0, 1500) <= random.randint(0, 100):
+            enemy_spawn[0] += random.randint(1, 3)
+        if random.randint(0, 1500) <= random.randint(0, 100):
+            enemy_spawn[0] -= random.randint(1, 3)
+        if random.randint(0, 1500) <= random.randint(0, 100):
+            enemy_spawn[1] += random.randint(1, 3)
+        if random.randint(0, 1500) <= random.randint(0, 100):
+            enemy_spawn[1] -= random.randint(1, 3)
+
+        if enemy_spawn[0] < -36:
+            enemy_spawn[0] = -36
+        if enemy_spawn[0] > 1198:
+            enemy_spawn[0] = 1198
+        if enemy_spawn[1] <= -9:
+            enemy_spawn[1] = -9
+        if enemy_spawn[1] >= 616:
+            enemy_spawn[1] = 616
+
+        
 
 #Start windows
 pygame.init()
@@ -125,6 +139,7 @@ while running:
     screen.blit(text_a, (10, 650))
     pressed_keys = pygame.key.get_pressed()
     player.update(pressed_keys)
+    enemy.ai()
     #screen.blit(text_x, spawn)
     #screen.blit(text_y, (640, 300))
     #screen.blit(text_x2, (123, 321))
